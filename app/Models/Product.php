@@ -11,7 +11,7 @@ class Product extends Model
     
     protected $table = 'products';
 
-    protected $fillable = ['title', 'author', 'price', 'category_id'];
+    protected $fillable = ['title', 'author', 'price','image', 'category_id'];
 
     public $timestamps = true;
 

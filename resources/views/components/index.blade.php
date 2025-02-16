@@ -23,7 +23,7 @@
                   <div class="banner-content">
                     <h2>The Fine Print Book Collection</h2>
                     <p>Best Offer Save 30%. Grab it now!</p>
-                    <a href="index.html" class="btn mt-3">Shop Collection</a>
+                    <a href="/" class="btn mt-3">Shop Collection</a>
                   </div>
                 </div>
                 <div class="col-md-6 text-center">
@@ -41,7 +41,7 @@
                   <div class="banner-content">
                     <h2>How Innovation works</h2>
                     <p>Discount available. Grab it now!</p>
-                    <a href="index.html" class="btn mt-3">Shop Product</a>
+                    <a href="/" class="btn mt-3">Shop Product</a>
                   </div>
                 </div>
                 <div class="col-md-6 text-center">
@@ -59,7 +59,7 @@
                   <div class="banner-content">
                     <h2>Your Heart is the Sea</h2>
                     <p>Limited stocks available. Grab it now!</p>
-                    <a href="index.html" class="btn mt-3">Shop Collection</a>
+                    <a href="/" class="btn mt-3">Shop Collection</a>
                   </div>
                 </div>
                 <div class="col-md-6 text-center">
@@ -139,7 +139,7 @@
         <div class="container">
           <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
             <h3 class="d-flex align-items-center">Best selling items</h3>
-            <a href="index.html" class="btn">View All</a>
+            <a href="/" class="btn">View All</a>
           </div>
           <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next product-slider-button-next">
             <svg class="chevron-forward-circle d-flex justify-content-center align-items-center p-2" width="80" height="80">
@@ -153,13 +153,13 @@
           </div>
           <div class="swiper product-swiper">
             <div class="swiper-wrapper">
+              {{-- Show data (Product) --}}
                 @foreach ($products as $item)
                   {{-- swiper-slide --}}
                     <div class="swiper-slide">
                       <div class="card position-relative p-4 border rounded-3">
-                        
-                        <img src="images/product-item2.png" class="img-fluid shadow-sm" alt="product item">
-                        <h6 class="mt-4 mb-0 fw-bold"><a href="/">{{$item->title}}</a></h6>
+                        <img src="{{asset('images/'.$item->image)}}" class="shadow-sm" alt="product item" style="height:330px">
+                        <h6 class="mt-4 mb-0 fw-bold"><a href="/{{$item->id}}">{{$item->title}}</a></h6>
                         <div class="review-content">
                           <p class="my-2 me-2 text-black-50" style="font-size: 13px">{{$item->author}}</p>
                           
@@ -182,8 +182,8 @@
                             </svg>
                           </div>
                         </div>
-                        <span class="price text-primary fw-bold mb-2 fs-5">${{$item->price}}</span>
-                        <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
+                        <span class="price text-primary fw-bold mb-2 fs-3 mt-4">${{$item->price}}</span>
+                        <div class="card-concern position-absolute start-0 end-0 d-flex gap-2" style="margin-bottom: 4rem;">
                           <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top"
                             data-bs-title="Tooltip on top">
                             <svg class="cart">
@@ -240,7 +240,7 @@
                 <small>Sec</small>
               </div>
             </div>
-            <a href="index.html" class="btn mt-3">Shop Collection</a>
+            <a href="/" class="btn mt-3">Shop Collection</a>
           </div>
         </div>
       </div>
@@ -253,33 +253,19 @@
         <h3 class="d-flex align-items-center">Categories</h3>
         </div>
         <div class="row">
-        <div class="col-md-4">
-            <div class="card mb-4 border-0 rounded-3 position-relative">
-            <a href="index.html">
-                <img src="images/category1.jpg" class="img-fluid rounded-3" alt="cart item">
-                <h6 class=" position-absolute bottom-0 bg-primary m-4 py-2 px-3 rounded-3"><a href="index.html"
-                    class="text-white">Romance</a></h6>
-            </a>
+
+          @foreach ($categories as $item)
+            <div class="col-md-3">
+                <div class="card mb-4 border-0 rounded-3 position-relative">
+                <a href="/shop/{{$item->id}}">
+                    <img src="{{asset('images/category/'.$item->image)}}" class="img-fluid rounded-3" alt="cart item" style="height: 250px;width:360px">
+                    <h6 class=" position-absolute bottom-0 bg-primary m-4 py-2 px-3 rounded-3"><a href="/shop/{{$item->id}}"
+                        class="text-white">{{$item->name}}</a></h6>
+                </a>
+                </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-center mb-4 border-0 rounded-3">
-            <a href="index.html">
-                <img src="images/category2.jpg" class="img-fluid rounded-3" alt="cart item">
-                <h6 class=" position-absolute bottom-0 bg-primary m-4 py-2 px-3 rounded-3"><a href="index.html"
-                    class="text-white">Lifestyle</a></h6>
-            </a>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-center mb-4 border-0 rounded-3">
-            <a href="index.html">
-                <img src="images/category3.jpg" class="img-fluid rounded-3" alt="cart item">
-                <h6 class=" position-absolute bottom-0 bg-primary m-4 py-2 px-3 rounded-3"><a href="index.html"
-                    class="text-white">Recipe</a></h6>
-            </a>
-            </div>
-        </div>
+          @endforeach
+
         </div>
     </div>
     </section>
@@ -288,38 +274,38 @@
     <div class="container">
         <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
         <h3 class="d-flex align-items-center">Latest posts</h3>
-        <a href="index.html" class="btn">View All</a>
+        <a href="/" class="btn">View All</a>
         </div>
         <div class="row">
         <div class="col-md-3 posts mb-4">
             <img src="images/post-item1.jpg" alt="post image" class="img-fluid rounded-3">
             <a href="blog.html" class="fs-6 text-primary">Books</a>
-            <h4 class="card-title mb-2 text-capitalize text-dark"><a href="index.html">10 Must-Read Books of the Year: Our Top Picks!</a></h4>
+            <h4 class="card-title mb-2 text-capitalize text-dark"><a href="/">10 Must-Read Books of the Year: Our Top Picks!</a></h4>
             <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight
-            five essential gadge. <span><a class="text-decoration-underline text-black-50" href="index.html">Read More</a></span>
+            five essential gadge. <span><a class="text-decoration-underline text-black-50" href="/">Read More</a></span>
             </p>
         </div>
         <div class="col-md-3 posts mb-4">
             <img src="images/post-item2.jpg" alt="post image" class="img-fluid rounded-3">
             <a href="blog.html" class="fs-6 text-primary">Books</a>
-            <h4 class="card-title mb-2 text-capitalize text-dark"><a href="index.html">The Fascinating Realm of Science Fiction</a></h4>
+            <h4 class="card-title mb-2 text-capitalize text-dark"><a href="/">The Fascinating Realm of Science Fiction</a></h4>
             <p class="mb-2">Explore the intersection of technology and sustainability in our latest blog post. Learn about
-            the innovative <span><a class="text-decoration-underline text-black-50" href="index.html">Read More</a></span> </p>
+            the innovative <span><a class="text-decoration-underline text-black-50" href="/">Read More</a></span> </p>
         </div>
         <div class="col-md-3 posts mb-4">
             <img src="images/post-item3.jpg" alt="post image" class="img-fluid rounded-3">
             <a href="blog.html" class="fs-6 text-primary">Books</a>
-            <h4 class="card-title mb-2 text-capitalize text-dark"><a href="index.html">Finding Love in the Pages of a Book</a></h4>
+            <h4 class="card-title mb-2 text-capitalize text-dark"><a href="/">Finding Love in the Pages of a Book</a></h4>
             <p class="mb-2">Stay ahead of the curve with our insightful look into the rapidly evolving landscape of
-            wearable technology. <span><a class="text-decoration-underline text-black-50" href="index.html">Read More</a></span>
+            wearable technology. <span><a class="text-decoration-underline text-black-50" href="/">Read More</a></span>
             </p>
         </div>
         <div class="col-md-3 posts mb-4">
             <img src="images/post-item4.jpg" alt="post image" class="img-fluid rounded-3">
             <a href="blog.html" class="fs-6 text-primary">Books</a>
-            <h4 class="card-title mb-2 text-capitalize text-dark"><a href="index.html">Reading for Mental Health: How Books Can Heal and Inspire</a></h4>
+            <h4 class="card-title mb-2 text-capitalize text-dark"><a href="/">Reading for Mental Health: How Books Can Heal and Inspire</a></h4>
             <p class="mb-2">In today's remote work environment, productivity is key. Discover the top apps and tools that
-            can help you stay <span><a class="text-decoration-underline text-black-50" href="index.html">Read More</a></span>
+            can help you stay <span><a class="text-decoration-underline text-black-50" href="/">Read More</a></span>
             </p>
         </div>
         </div>

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +15,13 @@ use App\Http\Controllers\HomeController;
 |
 */
 
+//Home
 Route::get('/',[HomeController::class,'index'])->name('shop.home');
+
+
+//Product Details
+Route::get('/{id}',[ProductController::class,'detail'])->name('shop.detail');
+
+
+//Product Of Category
+Route::get('/shop/{id}',[ProductController::class,'productOfCategory']);
