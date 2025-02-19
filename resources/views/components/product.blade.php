@@ -1,6 +1,6 @@
 @extends('layout.template')
 
-@section('subtile','Product')
+@section('subtitle','Product')
 
     
 @section('content')
@@ -8,7 +8,7 @@
         <div class="row">
             @foreach ($products as $item)
 
-                <div class="product col-md-3">
+                <div class="product col-md-3 my-2">
                     <div class="card position-relative p-4 border rounded-3">
                     <img src="{{asset('images/'.$item->image)}}" class="shadow-sm" alt="product item" style="height:360px">
                     <h6 class="mt-4 mb-0 fw-bold"><a href="/{{$item->id}}">{{$item->title}}</a></h6>
@@ -36,12 +36,12 @@
                     </div>
                     <span class="price text-primary fw-bold mb-2 fs-3 mt-4">${{$item->price}}</span>
                     <div class="card-concern position-absolute start-0 end-0 d-flex gap-2" style="margin-bottom: 4rem;">
-                        <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top"
-                        data-bs-title="Tooltip on top">
-                        <svg class="cart">
-                            <use xlink:href="#cart"></use>
-                        </svg>
-                        </button>
+                        <a  href="/addToCart/{{$item->id}}" class="btn btn-dark">
+                            <svg class="cart">
+                                <use xlink:href="#cart"></use>
+                            </svg>
+                        </a>
+
                         <a href="#" class="btn btn-dark">
                         <span>
                             <svg class="wishlist">

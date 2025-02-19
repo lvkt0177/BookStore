@@ -1,5 +1,5 @@
 @extends('layout.template')
-@section('subtile',$product->title)
+@section('subtitle',$product->title)
 
 @section('CSS')
     <link rel="stylesheet" href="{{ asset('css/details.css') }}">

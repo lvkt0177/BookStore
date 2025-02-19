@@ -15,11 +15,20 @@ class ProductController extends Controller
         return view('components.details',compact('product'));
     }
 
-    public function productOfCategory($id)
+    public function productOfCategory($id = null)
     {
-        $category = Category::find($id); 
-        $products = $category ? $category->products : collect();
+        if($id)
+        {
+            $category = Category::find($id);
+            $products = $category ? $category->products : collect();
+        }
+        else
+        {
+            $products = Product::all();
+        }   
 
         return view('components.product',compact('products'));
     }
+
+
 }

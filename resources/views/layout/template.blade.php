@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Book Store | @yield('subtile')</title>
+    <title>Book Store | @yield('subtitle')</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -222,7 +222,7 @@
                 
                 <li class="nav-item"><a class="nav-link me-4" href="/">About</a></li>
                 
-                <li class="nav-item"><a class="nav-link me-4" href="/">Shop</a></li>
+                <li class="nav-item"><a class="nav-link me-4" href="/shop">Shop</a></li>
                 
                 <li class="nav-item"><a class="nav-link me-4" href="/">Blogs</a></li>
                 
@@ -349,7 +349,7 @@
                         <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
                           <div>
                             <h5>
-                              <a href="index.html">The Emerald Crown</a>
+                              <a href="/">The Emerald Crown</a>
                             </h5>
                             <small>Special discounted price.</small>
                             <a href="#" class="d-block fw-medium text-capitalize mt-2">Add to cart</a>
@@ -359,7 +359,7 @@
                         <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
                           <div>
                             <h5>
-                              <a href="index.html">The Last Enchantment</a>
+                              <a href="/">The Last Enchantment</a>
                             </h5>
                             <small>Perfect for enlightened people.</small>
                             <a href="#" class="d-block fw-medium text-capitalize mt-2">Add to cart</a>
@@ -373,49 +373,41 @@
                       </ul>
                       <div class="d-flex flex-wrap justify-content-center">
                         <a href="#" class="w-100 btn btn-dark mb-1" type="submit">Add all to cart</a>
-                        <a href="index.html" class="w-100 btn btn-primary" type="submit">View cart</a>
+                        <a href="/" class="w-100 btn btn-primary" type="submit">View cart</a>
                       </div>
                     </div>
                   </li>
                   <li class="cart-dropdown dropdown">
-                    <a href="index.html" class="dropdown-toggle" data-bs-toggle="dropdown" role="button"
+                    <a href="/" class="dropdown-toggle" data-bs-toggle="dropdown" role="button"
                       aria-expanded="false">
                       <svg class="cart">
                         <use xlink:href="#cart"></use>
-                      </svg><span class="fs-6 fw-light">(02)</span>
+                      </svg><span class="fs-6 fw-light">({{$totalQuantity}})</span>
                     </a>
                     <div class="dropdown-menu animate slide dropdown-menu-start dropdown-menu-lg-end p-3">
                       <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span class="text-primary">Your cart</span>
-                        <span class="badge bg-primary rounded-pill">2</span>
+                        <span class="badge bg-primary rounded-pill">{{$totalQuantity}}</span>
                       </h4>
                       <ul class="list-group mb-3">
-                        <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                          <div>
-                            <h5>
-                              <a href="index.html">Secrets of the Alchemist</a>
-                            </h5>
-                            <small>High quality in good price.</small>
-                          </div>
-                          <span class="text-primary">$870</span>
-                        </li>
-                        <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                          <div>
-                            <h5>
-                              <a href="index.html">Quest for the Lost City</a>
-                            </h5>
-                            <small>Professional Quest for the Lost City.</small>
-                          </div>
-                          <span class="text-primary">$600</span>
-                        </li>
+                          @foreach($cart as $id => $item)
+                            <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                              <div>
+                                <p>
+                                  <a href="/{{$item['id']}}">{{$item['title']}} ({{$item['quantity']}})</a>
+                                </p>
+                              </div>
+                              <span class="text-primary">${{$item['price']}}</span>
+                            </li>
+                          @endforeach
+                        
                         <li class="list-group-item bg-transparent d-flex justify-content-between">
                           <span class="text-capitalize"><b>Total (USD)</b></span>
-                          <strong>$1470</strong>
+                          <strong class=" fw-bolder">${{$totalPrice}}</strong>
                         </li>
                       </ul>
                       <div class="d-flex flex-wrap justify-content-center">
-                        <a href="index.html" class="w-100 btn btn-dark mb-1" type="submit">View Cart</a>
-                        <a href="index.html" class="w-100 btn btn-primary" type="submit">Go to checkout</a>
+                        <a href="/cart" class="w-100 btn btn-dark mb-1" type="submit">View Cart</a>
                       </div>
                     </div>
                   </li>
