@@ -16,13 +16,20 @@ class CartController extends Controller
         return view('components.cart',compact('cart','total'));
     }
 
-    public function addToCart($id)
+    public function addToCart($id = null)
     {
-        $product = Product::find($id);
+        logger('====================');
 
+        if (!$id || !is_numeric($id)) 
+        {
+            logger('Loi khong ID');
+            return back()->with('error', 'Error');
+        }
+
+        $product = Product::find($id);
         if(!$product)
         {
-            return redirect()->back()->with('error','Lỗi khi thêm vào giỏ hàng');
+            return redirect()->back()->with('error','Error');
         }
 
         $cart = session()->get('cart',[]);
@@ -33,35 +40,70 @@ class CartController extends Controller
         }
         else
         {
-            $cart[$id] = [
+            logger('Chay ham');
+
+            $cart[$id] = 
+            [
                 'id' => $product->id,
                 'title' => $product->title,
                 'price' => $product->price,
                 'image' => $product->image,
                 'quantity' => 1
             ];
+
         }
-        
         session()->put('cart',$cart);
 
-        return redirect()->back()->with('success','Thêm vào giỏ hàng thành công');
+        return redirect()->back()->with('success','Successfull add to cart');
+
     }
 
-    public function removeItemOnCart($id)
+    public function removeItemOnCart($id = null)
     {
-        $cart = session()->get('cart', []);
-        if (isset($cart[$id])) 
+        if(!$id)
         {
-            unset($cart[$id]);
-            session()->put('cart', $cart);
+            return back()->with('error','error');
         }
-        return redirect()->back()->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng');
+
+        $cart = session()->get('cart',[]);
+
+        if(isset($cart[$id]))
+        {
+            logger('Vao if');
+            unset($cart[$id]);
+            session()->put('cart',$cart);
+        }
+
+        return redirect()->back()->with('success','success');
     }
 
     public function clearCart()
     {
         session()->forget('cart');
-        return redirect()->back()->with('clearSession','Đã xóa toàn bộ giỏ hàng');
+        return redirect()->back()->with('success','Đã xóa toàn bộ giỏ hàng');
     }
 
+    public function AddAllToCartFromWishlist()
+    {
+        $cart = session()->get('cart',[]);
+        $wishlist = session()->get('wishlist',[]);
+
+        foreach($wishlist as $item)
+        {
+            if(isset($cart[$item['id']]))
+            {
+                $cart[$item['id']]['quantity'] += 1;
+            }
+            else
+            {
+                $item['quantity'] = 1;
+                $cart[$item['id']] = $item;
+            }
+        }
+
+        session()->put('cart',$cart);
+
+        return back()->with('success','success');
+
+    }
 }

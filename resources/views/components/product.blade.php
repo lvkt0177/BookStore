@@ -10,7 +10,7 @@
 
                 <div class="product col-md-3 my-2">
                     <div class="card position-relative p-4 border rounded-3">
-                    <img src="{{asset('images/'.$item->image)}}" class="shadow-sm" alt="product item" style="height:360px">
+                    <img src="{{asset('images/'.$item->image)}}" class="shadow-sm" alt="product item" style="height:390px">
                     <h6 class="mt-4 mb-0 fw-bold"><a href="/{{$item->id}}">{{$item->title}}</a></h6>
                     <div class="review-content">
                         <p class="my-2 me-2 text-black-50" style="font-size: 13px">{{$item->author}}</p>
@@ -42,7 +42,7 @@
                             </svg>
                         </a>
 
-                        <a href="#" class="btn btn-dark">
+                        <a href="/addToWishlist/{{$item->id}}" class="btn btn-dark">
                         <span>
                             <svg class="wishlist">
                             <use xlink:href="#heart"></use>

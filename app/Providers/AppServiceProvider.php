@@ -29,11 +29,23 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         View::composer('*', function ($view) {
+
+            //Wishlist
+            $wishlist = session()->get('wishlist',[]);
+
+            
+
+            //CART============
             $cart = session()->get('cart',[]);
             $totalQuantity = array_sum(array_column($cart, 'quantity'));
-            $totalPrice = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
+            // $totalPrice = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
 
-            $view->with(compact('totalQuantity','cart','totalPrice'));
+            $totalPrice = array_reduce($cart,function($carry,$item){
+                return $carry + ($item['price'] * $item['quantity']);
+            },0);
+
+
+            $view->with(compact('totalQuantity','cart','totalPrice','wishlist'));
         });
     }
 }
